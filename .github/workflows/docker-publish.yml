@@ -25,7 +25,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: ./deploy
+          context: .
           file: ./deploy/Dockerfile
           push: true
           tags: cyberctf/jwt-forgery-flask:latest
