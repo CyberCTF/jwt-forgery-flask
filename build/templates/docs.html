@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block title %}API Documentation - QuickInsure{% endblock %}
+{% block description %}QuickInsure API Documentation{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto">
+    <!-- Header -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-white mb-2">API Documentation</h1>
+        <p class="text-gray-300">QuickInsure Health Insurance Portal API Reference</p>
+    </div>
+
+    <!-- API Overview -->
+    <div class="bg-gray-800/50 backdrop-blur-md rounded-xl p-6 border border-gray-700/50 mb-8">
+        <h2 class="text-xl font-semibold text-white mb-4">🔐 Authentication</h2>
+        <p class="text-gray-300 mb-4">All API endpoints require JWT authentication. Include your token in the Authorization header:</p>
+        <div class="bg-gray-700/30 rounded-lg p-4 border border-gray-600/50">
+            <code class="text-green-300">Authorization: Bearer &lt;your_jwt_token&gt;</code>
+        </div>
+    </div>
+
+    <!-- Get Token Info Section -->
+    <div class="bg-gray-800/50 backdrop-blur-md rounded-xl p-6 border border-gray-700/50 mb-8">
+        <h2 class="text-xl font-semibold text-white mb-4">🔍 Get Your Token Information</h2>
+        <p class="text-gray-300 mb-4">Click the button below to retrieve your current JWT token and its contents:</p>
+        
+        <button id="getTokenBtn" class="inline-flex items-center px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-lg transition-colors mb-4">
+            🔐 Get My Token Info
+        </button>
+        
+        <div id="tokenResult" class="hidden">
+            <div class="bg-gray-900/50 rounded-lg p-4 border border-gray-600/50">
+                <h3 class="text-lg font-medium text-white mb-2">Token Information:</h3>
+                <pre id="tokenContent" class="text-sm text-gray-300 whitespace-pre-wrap bg-gray-800 p-3 rounded border border-gray-600"></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- API Endpoints -->
+    <div class="bg-gray-800/50 backdrop-blur-md rounded-xl p-6 border border-gray-700/50 mb-8">
+        <h2 class="text-xl font-semibold text-white mb-4">📋 Available Endpoints</h2>
+        
+        <div class="grid gap-6">
+            <!-- Authentication -->
+            <div class="bg-gray-700/30 rounded-lg p-4 border border-gray-600/50">
+                <h3 class="text-lg font-medium text-white mb-3">🔐 Authentication</h3>
+                <div class="space-y-3">
+                    <div class="flex items-center">
+                        <span class="text-green-400 font-mono mr-3">POST</span>
+                        <span class="text-white font-medium">/api/login</span>
+                    </div>
+                    <p class="text-gray-300 text-sm">Authenticate with username and password to get JWT token</p>
+                    <div class="bg-gray-800 rounded p-2 text-xs">
+                        <span class="text-gray-400">Request Body:</span>
+                        <pre class="text-green-300 mt-1">{"username": "john.doe", "password": "Welcome2024!"}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Endpoints -->
+            <div class="bg-gray-700/30 rounded-lg p-4 border border-gray-600/50">
+                <h3 class="text-lg font-medium text-white mb-3">👤 User Endpoints</h3>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex items-center mb-2">
+                            <span class="text-blue-400 font-mono mr-3">GET</span>
+                            <span class="text-white font-medium">/api/user/profile</span>
+                        </div>
+                        <p class="text-gray-300 text-sm">Get user profile information</p>
+                    </div>
+                    
+                    <div>
+                        <div class="flex items-center mb-2">
+                            <span class="text-blue-400 font-mono mr-3">GET</span>
+                            <span class="text-white font-medium">/api/user/policies</span>
+                        </div>
+                        <p class="text-gray-300 text-sm">Get user insurance policies</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Endpoints -->
+            <div class="bg-gray-700/30 rounded-lg p-4 border border-gray-600/50">
+                <h3 class="text-lg font-medium text-white mb-3">⚙️ Admin Endpoints</h3>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex items-center mb-2">
+                            <span class="text-purple-400 font-mono mr-3">GET</span>
+                            <span class="text-white font-medium">/api/admin/system-config</span>
+                            <span class="text-red-400 text-xs ml-2">🔒 ADMIN</span>
+                        </div>
+                        <p class="text-gray-300 text-sm">Get system configuration (admin only)</p>
+                    </div>
+                    
+                    <div>
+                        <div class="flex items-center mb-2">
+                            <span class="text-purple-400 font-mono mr-3">GET</span>
+                            <span class="text-white font-medium">/api/admin/user-management</span>
+                            <span class="text-red-400 text-xs ml-2">🔒 ADMIN</span>
+                        </div>
+                        <p class="text-gray-300 text-sm">Get user management data (admin only)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testing Section -->
+    <div class="bg-gray-800/50 backdrop-blur-md rounded-xl p-6 border border-gray-700/50">
+        <h2 class="text-xl font-semibold text-white mb-4">🧪 Testing Examples</h2>
+        <p class="text-gray-300 mb-4">Use these curl commands to test the API endpoints:</p>
+        
+        <div class="space-y-4">
+            <div class="bg-gray-700/30 rounded-lg p-4 border border-gray-600/50">
+                <h4 class="text-white font-medium mb-2">Login and get token:</h4>
+                <pre class="text-sm text-green-300 bg-gray-800 p-3 rounded border border-gray-600 overflow-x-auto">curl -X POST http://localhost:3206/api/login \
+  -H "Content-Type: application/json" \
+  -d '{"username": "john.doe", "password": "Welcome2024!"}'</pre>
+            </div>
+            
+            <div class="bg-gray-700/30 rounded-lg p-4 border border-gray-600/50">
+                <h4 class="text-white font-medium mb-2">Get user profile (with token):</h4>
+                <pre class="text-sm text-green-300 bg-gray-800 p-3 rounded border border-gray-600 overflow-x-auto">curl -X GET http://localhost:3206/api/user/profile \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"</pre>
+            </div>
+            
+            <div class="bg-gray-700/30 rounded-lg p-4 border border-gray-600/50">
+                <h4 class="text-white font-medium mb-2">Access admin endpoint:</h4>
+                <pre class="text-sm text-green-300 bg-gray-800 p-3 rounded border border-gray-600 overflow-x-auto">curl -X GET http://localhost:3206/api/admin/system-config \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Token JWT stocké dans la session Flask
+const jwtToken = '{{ session.access_token }}';
+
+// Get Token Info functionality
+document.getElementById('getTokenBtn').addEventListener('click', async function() {
+    try {
+        const response = await fetch('/api/user/token', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + jwtToken
+            }
+        });
+        
+        const data = await response.json();
+        
+        document.getElementById('tokenContent').textContent = JSON.stringify(data, null, 2);
+        document.getElementById('tokenResult').classList.remove('hidden');
+        
+    } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('tokenContent').textContent = 'Error: ' + error.message;
+        document.getElementById('tokenResult').classList.remove('hidden');
+    }
+});
+</script>
+{% endblock %} 

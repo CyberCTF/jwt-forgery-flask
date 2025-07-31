@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  web:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    ports:
+      - "3206:3206"
+    volumes:
+      - ../deploy:/app/../deploy:ro
+    environment:
+      - FLASK_ENV=production
+      - FLASK_APP=app.py
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3206/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3 

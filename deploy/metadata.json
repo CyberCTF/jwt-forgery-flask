@@ -1,0 +1,40 @@
+{
+  "site": {
+    "name": "QuickInsure",
+    "description": "Health Insurance Portal - JWT Authentication Vulnerability Lab",
+    "logo": "/logo.svg",
+    "copyright": "2024 QuickInsure"
+  },
+  "navigation": {
+    "main": [
+      { "link": "/", "title": "Home" },
+      { "link": "/dashboard", "title": "Dashboard" }
+    ],
+    "auth": [
+      { "link": "/login", "title": "Login" }
+    ]
+  },
+  "footer": {
+    "links": [
+      { "link": "/", "title": "Home" },
+      { "link": "/dashboard", "title": "Dashboard" }
+    ],
+    "social": [
+      {
+        "name": "Website",
+        "href": "https://www.quickinsure.com",
+        "icon": "website"
+      }
+    ]
+  },
+  "challenge": {
+    "title": "JWT Authentication Bypass",
+    "description": "Exploit weak JWT implementation to gain admin access and retrieve sensitive information from the QuickInsure health insurance portal.",
+    "skills": ["JWT", "Authentication", "Web Security", "API Testing"],
+    "points": 200
+  },
+  "cta": {
+    "label": "Access Portal",
+    "link": "/login"
+  }
+} 
